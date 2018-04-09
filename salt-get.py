@@ -9,20 +9,20 @@ grains = local.cmd(tgt, "grains.items")
 diskusage = local.cmd(tgt, "disk.usage")
 iousage = local.cmd(tgt,"disk.iostat")
 #print(iousage)
-#cols = "Ö÷»ú,IP,ÄÚ´æ(GB),CPUĞÍºÅ,CPUºËÊı,²Ù×÷ÏµÍ³ ,/ÈİÁ¿(GB),/(Ê¹ÓÃÂÊ£©,/dataÈİÁ¿(GB),/data(Ê¹ÓÃÂÊ£©,/data1ÈİÁ¿
-###´ò¿ªÒ»¸ö.csvÎÄ¼ş£¬ÒÔ±ãĞ´Èë  
+#cols = "ä¸»æœº,IP,å†…å­˜(GB),CPUå‹å·,CPUæ ¸æ•°,æ“ä½œç³»ç»Ÿ ,/å®¹é‡(GB),/(ä½¿ç”¨ç‡ï¼‰,/dataå®¹é‡(GB),/data(ä½¿ç”¨ç‡ï¼‰,/data1å®¹é‡
+###æ‰“å¼€ä¸€ä¸ª.csvæ–‡ä»¶ï¼Œä»¥ä¾¿å†™å…¥  
 #ret_file = open("hostinfo.csv", "w")  
-###Ê×ÏÈĞ´Èë¿ªÍ·£¬ÓĞµã×Ö¶ÎÃûµÄÒâË¼  
+###é¦–å…ˆå†™å…¥å¼€å¤´ï¼Œæœ‰ç‚¹å­—æ®µåçš„æ„æ€  
 #ret_file.write(cols + "\n")  
 tt='''
-########################ÏßÉÏ·şÎñÆ÷Ñ²¼ì½á¹û####################################
+########################çº¿ä¸ŠæœåŠ¡å™¨å·¡æ£€ç»“æœ####################################
 '''
 print(tt)
 try:  
     for i in grains.keys(): 
         print("---------------------------------------" + i)
   
-        ###È¥µô127.0.0.1Õâ¸öµØÖ·  
+        ###å»æ‰127.0.0.1è¿™ä¸ªåœ°å€  
         hostname = grains[i]["nodename"]  
         ipv4 = str(grains[i]["ipv4"]).replace("'127.0.0.1',", "")  
         ipv4 = ipv4.replace(",", "|")  
@@ -32,10 +32,10 @@ try:
         cpu = grains[i]["cpu_model"]  
         virtual = grains[i]["virtual"]  
         io_idle=iousage[i]["sys"]["%idle"]
-        print("´ÅÅÌ¿ÕÏĞioÎª:%s" %(io_idle))
-#        print("ÄÚ´æÊÇ%s," %(mem,num_cpu,OS,cpu))
+        print("ç£ç›˜ç©ºé—²ioä¸º:%s" %(io_idle))
+#        print("å†…å­˜æ˜¯%s," %(mem,num_cpu,OS,cpu))
   
-        ##´ÅÅÌÈİÁ¿  
+        ##ç£ç›˜å®¹é‡  
         if "/" not in diskusage[i]:  
             disk_used = " "  
             disk_capacity = " "  
@@ -45,7 +45,7 @@ try:
 #        print(type(disk_used))
 #        print(type(disk_capacity))
 #        print(disk_used,disk_capacity)
-        print("/´ÅÅÌÊ¹ÓÃÁ¿:%f,     / ´ÅÅÌÊ¹ÓÃÂÊ:%s" %(disk_used,disk_capacity))       
+        print("/ç£ç›˜ä½¿ç”¨é‡:%f,     / ç£ç›˜ä½¿ç”¨ç‡:%s" %(disk_used,disk_capacity))       
         if "/home" not in diskusage[i]:  
             disk_data_used = " "  
             disk_data_capacity = " "  
@@ -55,7 +55,7 @@ try:
 #        print(type(disk_data_used)) 
 #        print(type(disk_data_capacity)) 
 
-        print("/homeÊ¹ÓÃÁ¿:%f,    /home ´ÅÅÌÊ¹ÓÃÂÊ:%s" %(disk_data_used,disk_data_capacity))
+        print("/homeä½¿ç”¨é‡:%f,    /home ç£ç›˜ä½¿ç”¨ç‡:%s" %(disk_data_used,disk_data_capacity))
 
         print("\n")
 except Exception, e:  
